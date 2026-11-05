@@ -12,7 +12,7 @@ Arta kërkon një udhëtim për në AAB, ndërsa Dreni ofron dy vende në vetur�
 2. Detajet: të dhënat e kartës së zgjedhur, vendtakimi, Kërko vend dhe Kthehu te lista. Kur vendet janë zero, veprimi çaktivizohet.
 3. Kërkesa në pritje: mesazhi Simulim: Në pritje, sqarimi se kërkesa nuk është dërguar dhe kthimi te detajet ose lista.
 
-Skica digjitale do të ruhet si skica.png pranë këtij dokumenti.
+Skica digjitale ruhet si skica.png pranë këtij dokumenti. Ajo paraqet listën, detajet dhe gjendjen në pritje, me kthimin mbrapa dhe rastin kur nuk ka vende të lira.
 
 ## 4. MVP — vetëm tri veçori
 1. Shikimi i listës së udhëtimeve.
