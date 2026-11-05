@@ -1,10 +1,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { gjejUdhetimin } from "@/lib/udhetimet";
+import { GabimDatabaze } from "@/components/GabimDatabaze";
+
+export const dynamic = "force-dynamic";
 
 export default async function Kerkesa({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const udhetim = gjejUdhetimin(id);
+  let udhetim;
+  try { udhetim = await gjejUdhetimin(id); }
+  catch { return <GabimDatabaze />; }
   if (!udhetim) notFound();
 
   return (
