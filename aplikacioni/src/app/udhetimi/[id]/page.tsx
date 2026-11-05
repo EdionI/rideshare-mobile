@@ -24,7 +24,7 @@ export default async function Detajet({ params }: { params: Promise<{ id: string
           <div><dt>Vendtakimi</dt><dd>{udhetim.vendtakimi}</dd></div>
           <div><dt>Vende të lira</dt><dd>{udhetim.vende}</dd></div>
         </dl>
-        {udhetim.vende > 0 ? <Link className="action" href={`/udhetimi/${id}/kerkesa`}>Kërko vend <span aria-hidden="true">→</span></Link> : <button className="action" type="button" disabled>Nuk ka vende të lira</button>}
+        {udhetim.vende > 0 ? <Link className="action" href={`/udhetimi/${id}/kerkesa`}>Provo kërkesën (simulim) <span aria-hidden="true">→</span></Link> : <button className="action" type="button" disabled>Nuk ka vende të lira</button>}
       </section>
       <aside className="notice">Ky është udhëtim fiktiv. Kërkesa në hapin tjetër nuk dërgohet te një shofer dhe nuk rezervon vend.</aside>
     </main>
