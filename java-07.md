@@ -72,3 +72,7 @@ Pas provave, SQL riktheu ID 2 në Fushë Kosovë, 08:15 dhe 1 vend. Si kontroll 
 Hyrja e re ishte ora 10:25 në vend të 10:20, me të njëjtin ID, nisje dhe numër vendesh. Parashikimi ishte përditësimi i orës në të tri pamjet, sepse të tria lexojnë të njëjtin rresht nga Neon. Rezultati përputhej me këtë parashikim.
 
 Demonstrimi me kolegun ende nuk është kryer. Duhet të përsëritet personalisht kontrolli, të shpjegohet kushti vende > 0 dhe të provohet një hyrje e zgjedhur nga kolegu në takimin e radhës. Nuk pretendohet se ky kontroll është bërë në çift.
+
+## Ndihma nga AI
+
+AI ndihmoi me parashikimin teknik, korrigjimin e etiketës, provat lokale dhe përgatitjen e raportit.
