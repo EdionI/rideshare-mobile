@@ -1,0 +1,38 @@
+{
+  "data": "2026-11-05",
+  "kontrollet": [
+    {
+      "prova": "Manifesti",
+      "rezultati": "kaloi",
+      "emri": "RideShare AAB"
+    },
+    {
+      "prova": "Ikona 192",
+      "rezultati": "kaloi",
+      "permasat": "192x192"
+    },
+    {
+      "prova": "Ikona 512",
+      "rezultati": "kaloi",
+      "permasat": "512x512"
+    },
+    {
+      "prova": "API publike",
+      "rezultati": "kaloi",
+      "udhetime": 3,
+      "fushaPublike": [
+        "destinacioni",
+        "id",
+        "nisja",
+        "ora",
+        "vende",
+        "vendtakimi"
+      ],
+      "oraId2": "08:15"
+    },
+    {
+      "prova": "Shërbimi i worker-it",
+      "rezultati": "kaloi"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="sq">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#12634f">
+  <title>RideShare: lista e ruajtur</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f5f7f2;color:#182728;font:16px/1.6 Arial,Helvetica,sans-serif}main{max-width:800px;margin:auto;padding:30px 20px}h1{font-size:clamp(30px,6vw,46px);line-height:1.15;letter-spacing:-1px}h2{font-size:22px;line-height:1.35}button,a{font:inherit}button{min-height:46px;padding:10px 18px;border:0;border-radius:9px;background:#12634f;color:white;font-weight:700;cursor:pointer}button:disabled{background:#e0e5dc;color:#53624e;cursor:not-allowed}a{color:#12634f;text-underline-offset:4px;display:inline-flex;align-items:center;min-height:44px}.trip-card{background:white;border:1px solid #d8e0dc;border-radius:16px;padding:20px;margin:16px 0}.trip-card h2{margin:4px 0 10px}.trip-card p{margin:6px 0}#source{padding:16px;border-left:3px solid #639d72;background:#eaf0e5;border-radius:0 8px 8px 0}time{overflow-wrap:anywhere}.eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;color:#12634f}.muted{color:#566665;font-size:13px}.warning{padding:16px;border:1px solid #d8e0dc;border-radius:12px}*:focus-visible{outline:3px solid #bd6900;outline-offset:4px}@media(max-width:420px){button{width:100%}}
+  </style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">RIDESHARE AAB</p>
+  <h1>Udhëtimet, edhe pa internet</h1>
+  <p id="source" role="status" aria-live="polite">Po lexojmë listën.</p>
+  <p class="muted">Ruajtur për herë të fundit: <time id="saved">Ende pa kopje</time></p>
+  <button id="refresh" type="button">Rifresko listën</button>
+  <div id="trips"></div>
+  <button id="book" type="button" disabled>Kërko vend: kërkon lidhje dhe server</button>
+  <p class="warning">Kjo pamje shërben vetëm për lexim. Vendet dhe orari mund të kenë ndryshuar. Asnjë rezervim nuk është konfirmuar.</p>
+  <a href="/">Kthehu te aplikacioni</a>
+</main>
+<script>
+const source = document.querySelector("#source");
+const list = document.querySelector("#trips");
+const savedTime = document.querySelector("#saved");
+const refresh = document.querySelector("#refresh");
+
+async function load() {
+  refresh.disabled = true;
+  source.textContent = "Po kërkojmë listën.";
+  try {
+    const response = await fetch("/api/udhetimet", { cache: "no-store", credentials: "omit" });
+    const data = await response.json();
+    if (!response.ok || !Array.isArray(data.trips)) throw new Error("no_snapshot");
+    list.replaceChildren();
+    for (const trip of data.trips) {
+      const card = document.createElement("article");
+      card.className = "trip-card";
+      const title = document.createElement("h2");
+      title.textContent = trip.nisja + " → " + trip.destinacioni;
+      const details = document.createElement("p");
+      details.textContent = "Ora: " + trip.ora + " · Vende në këtë kopje: " + trip.vende;
+      const meeting = document.createElement("p");
+      meeting.className = "muted";
+      meeting.textContent = "Vendtakimi: " + trip.vendtakimi;
+      card.append(title, details, meeting);
+      list.append(card);
+    }
+    const saved = response.headers.get("x-rideshare-saved-at");
+    savedTime.textContent = saved ? new Date(saved).toLocaleString("sq-AL") : "Lexuar drejtpërdrejt; kopja ende nuk u ruajt.";
+    if (saved) savedTime.dateTime = saved;
+    else savedTime.removeAttribute("datetime");
+    source.textContent = response.headers.get("x-rideshare-source") === "cache"
+      ? "Lista e fundit e ruajtur. Mund të jetë vjetruar. Serveri nuk u arrit."
+      : "Lista erdhi nga serveri. Lexo sërish para çdo veprimi.";
+  } catch {
+    source.textContent = list.children.length
+      ? "Lidhja dështoi. Lista në ekran është e mëparshme; nuk ka konfirmim të ri."
+      : "Ende nuk ka listë të ruajtur. Hape aplikacionin me internet dhe provo përsëri.";
+  } finally { refresh.disabled = false; }
+}
+refresh.addEventListener("click", load);
+window.addEventListener("offline", () => { source.textContent = "Lidhja duket e ndërprerë. Lista e shfaqur mund të jetë e vjetër."; });
+window.addEventListener("online", () => { source.textContent = "Rrjeti duket i lidhur. Shtyp Rifresko listën për ta pyetur serverin."; });
+load();
+</script>
+</body>
+</html>

@@ -1,55 +1,69 @@
-# RideShare Mobile — Javët 1–3
+# RideShare Mobile: Javët 1 deri 6
 
-Projekt mësimor për **Programimi për Pajisje Mobile, AAB 2026/2027**.
+Projekt mësimor për Programimi për Pajisje Mobile, AAB 2026/2027.
 
 ## Dokumentet dhe dorëzimet
 
-- **Java 1:** [exit-ticket.md](exit-ticket.md) dhe [prd.md](prd.md). Ideja individuale është aplikacioni për kërkim pune; PRD-ja është një propozim që ende kërkon intervista dhe zgjedhjen e biznesit partner.
-- **Java 2:** [java-02.md](java-02.md) dhe [skica.png](skica.png), për ushtrimin e përbashkët RideShare. [Dorëzimi #836](https://github.com/arbenl/arbenl-mobile-assignments-2026-2027/issues/836) kaloi 2/2 kontrolle teknike.
-- **Java 3:** kodi brenda `aplikacioni/`, [raporti java-03.md](java-03.md) dhe pamjet e provave te `provat/`.
+- Java 1: [exit-ticket.md](exit-ticket.md) dhe [prd.md](prd.md). Ideja individuale është aplikacioni për kërkim pune. PRD-ja ende kërkon intervista dhe zgjedhjen e biznesit partner. [Dorëzimi #427](https://github.com/arbenl/arbenl-mobile-assignments-2026-2027/issues/427), 2/2 kontrolle teknike.
+- Java 2: [java-02.md](java-02.md) dhe [skica.png](skica.png), ushtrimi i përbashkët RideShare. [Dorëzimi #836](https://github.com/arbenl/arbenl-mobile-assignments-2026-2027/issues/836), 2/2.
+- Java 3: [java-03.md](java-03.md), lista, detajet dhe kërkesa e simuluar. [Dorëzimi #842](https://github.com/arbenl/arbenl-mobile-assignments-2026-2027/issues/842), 5/5.
+- Java 4: [java-04.md](java-04.md), leximi real nga Neon dhe trajtimi i gabimeve. [Dorëzimi #847](https://github.com/arbenl/arbenl-mobile-assignments-2026-2027/issues/847), 5/5.
+- Java 5: [java-05.md](java-05.md), hyrja me GitHub dhe kontrolli në server i rolit dhe pronarit. [Dorëzimi #849](https://github.com/arbenl/arbenl-mobile-assignments-2026-2027/issues/849), 5/5.
+- Java 6: [java-06.md](java-06.md), manifesti, ikonat dhe lista publike për lexim offline.
 
-`java-04.md` është modeli i ngarkuar më herët; Java 4 ende nuk është zbatuar.
+Pamjet dhe rezultatet e provave gjenden te [provat/](provat/). Kontrollet teknike nuk janë notë.
 
 ## Si e nis aplikacionin
 
-Duhet Node.js 20.9 ose më i ri; rekomandohet Node.js LTS. Në terminalin e dosjes së këtij repository:
+Duhet Node.js 20.9 ose më i ri. Në dosjen e repository-t:
 
 ```sh
 cd aplikacioni
 npm ci
-npm run dev
 ```
 
-Hap adresën që jep terminali, zakonisht `http://localhost:3000`.
+Në një kopje të re, kopjo `.env.example` si `.env.local` dhe plotëso lokalisht DATABASE_URL, GITHUB_ID, GITHUB_SECRET dhe NEXTAUTH_SECRET. Mos i ngarko në GitHub. Në kompjuterin ku u kryen provat, konfigurimi privat është vendosur tashmë.
 
-Për kontrollin e ndërtimit dhe tipeve:
+OAuth App lokal përdor adresën `http://127.0.0.1:3001` dhe callback-un `http://127.0.0.1:3001/api/auth/callback/github`. NEXTAUTH_URL duhet të përputhet me këtë adresë. Nise kështu:
 
 ```sh
-npm run build
-npm run typecheck
+npm run dev -- --hostname 127.0.0.1 --port 3001
 ```
 
-Për ta nisur versionin e ndërtuar, përdor `npm run start` pas `npm run build`.
+Hap `http://127.0.0.1:3001`. Për versionin e ndërtuar:
 
-## Rrjedha e Javës 3
+```sh
+npm run typecheck
+npm run build
+npm run start -- --hostname 127.0.0.1 --port 3001
+```
 
-1. `/` shfaq tri karta me udhëtime fiktive.
-2. `/udhetimi/2` shfaq Fushë Kosovë → AAB, orën 08:15 dhe vendtakimin Te stacioni kryesor.
-3. `/udhetimi/2/kerkesa` shfaq **Simulim: Në pritje**. Nuk dërgohet kërkesë dhe nuk ruhet rezervim.
-4. `/udhetimi/3` ka zero vende dhe buton të çaktivizuar. Edhe adresa direkte `/udhetimi/3/kerkesa` nuk lejon simulim kërkese.
-5. `/udhetimi/99` dhe `/udhetimi/99/kerkesa` shfaqin **Udhëtimi nuk u gjet**, me kthim te lista.
+## Databaza e laboratorit
 
-## Ku gjendet kodi
+Në një databazë të re Neon, pasi të kesh vendosur DATABASE_URL në `.env.local`, ekzekuto:
 
-- `aplikacioni/src/lib/udhetimet.ts`: burimi i vetëm i tri udhëtimeve fiktive.
-- `aplikacioni/src/components/KartaUdhetimi.tsx`: komponenti i ripërdorshëm i kartës.
-- `aplikacioni/src/app/page.tsx`: lista.
-- `aplikacioni/src/app/udhetimi/[id]/page.tsx`: detajet.
-- `aplikacioni/src/app/udhetimi/[id]/kerkesa/page.tsx`: gjendja e simuluar e kërkesës.
-- `aplikacioni/src/app/udhetimi/[id]/not-found.tsx`: udhëtimi i panjohur.
+```sh
+node --env-file=.env.local scripts/setup-db.mjs schema.sql
+node --env-file=.env.local scripts/setup-db.mjs schema-java05.sql
+```
+
+Skema fillestare shton tri udhëtime fiktive. Në databazën ekzistuese këto hapa janë kryer. Mos e riekzekuto skemën fillestare mbi ndryshime që dëshiron t'i ruash.
+
+Përdoruesi i ri hyn si udhetar. Vetëm administratori i laboratorit mund të përdorë `scripts/cakto-shoferin.mjs` me ID-në numerike të verifikuar të profilit, pasi ai ka hyrë një herë. Skripti e cakton shofer dhe pronar vetëm të udhëtimit 2.
+
+## Rrjedha e aplikacionit
+
+1. `/` lexon tri udhëtimet nga Neon. `/udhetimi/2` tregon detajet.
+2. `/udhetimi/2/kerkesa` është simulim në pritje. Nuk krijon rezervim real.
+3. Udhëtimi pa vende dhe ID-të e panjohura kanë mesazhet përkatëse.
+4. `/panel` kërkon hyrje me GitHub. Serveri lejon ndryshimin e orës vetëm për shoferin që zotëron udhëtimin.
+5. `/api/udhetimet` kthen vetëm gjashtë fushat publike.
+6. Pas një vizite me lidhje, `/offline.html` lexon kopjen e ruajtur. Tregon burimin dhe kohën. Pas rikthimit të lidhjes përdor Rifresko listën.
+
+Kopja mund të jetë e vjetër. Paneli, hyrja dhe veprimet POST nuk ruhen nga service worker. Lexuesi offline nuk konfirmon ose ridërgon rezervime.
 
 ## Çfarë mbetet për studentin
 
-Rishiko dokumentet dhe kodin, kryej provën me një koleg dhe përditëso raportin me vëzhgimet reale. Provat e asistentit janë dokumentuar veçmas. Kalimi i kontrollit teknik të GitHub-it nuk është notë.
+Rishiko kodin dhe raportet, përsërit provat me një koleg dhe në telefon, dhe demonstroji në klasë. Raportet shënojnë cilat prova kreu asistenti. Intervistat dhe zgjedhja e partnerit për idenë individuale mbeten për t'u kryer.
 
-Për publikim të mëvonshëm në Vercel, **Root Directory** është `aplikacioni`. Publikimi nuk është bërë në këtë fazë.
+Publikimi në Vercel nuk është bërë. Për një publikim të mëvonshëm, Root Directory është `aplikacioni`; do të duhen konfigurimi privat dhe callback-u publik për atë adresë.

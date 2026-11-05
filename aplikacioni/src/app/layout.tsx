@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
+import Pwa from "@/components/Pwa";
 
 export const metadata: Metadata = {
   title: "RideShare · Udhëtimet për AAB",
@@ -16,6 +17,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Link className="brand" href="/" aria-label="RideShare, faqja kryesore"><span className="brand-mark" aria-hidden="true">R</span>RideShare<span className="brand-aab">/ AAB</span></Link>
           <Link className="panel-link" href="/panel">Hyr / Paneli im</Link>
         </header>
+        <Pwa />
         {children}
         <footer className="site-footer">Të dhëna fiktive · Pa rezervime reale · Projekt mësimor</footer>
       </body>
