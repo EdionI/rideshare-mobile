@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-05",
+  "checks": [
+    "Ruajtja reale nga shfletuesi shfaqet në Neon, listë dhe detaje si 08:25.",
+    "Kërkesa POST me sesionin e testit ruan udhëtimin e pronarit.",
+    "ID 1 refuzohet nga serveri dhe mbetet 08:00.",
+    "Ora e pavlefshme refuzohet pa ndryshuar databazën.",
+    "Kërkesa pa sesion kërkon hyrje dhe nuk ruan ndryshim.",
+    "Formulari i vjetër refuzohet pasi roli hiqet në databazë."
+  ]
+}

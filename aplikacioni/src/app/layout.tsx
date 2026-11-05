@@ -14,7 +14,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <a className="skip-link" href="#permbajtja">Kalo te përmbajtja</a>
         <header className="site-header">
           <Link className="brand" href="/" aria-label="RideShare, faqja kryesore"><span className="brand-mark" aria-hidden="true">R</span>RideShare<span className="brand-aab">/ AAB</span></Link>
-          <span className="demo-label">Projekt mësimor</span>
+          <Link className="panel-link" href="/panel">Hyr / Paneli im</Link>
         </header>
         {children}
         <footer className="site-footer">Të dhëna fiktive · Pa rezervime reale · Projekt mësimor</footer>
