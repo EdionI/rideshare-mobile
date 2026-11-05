@@ -9,7 +9,7 @@ Projekt mësimor për Programimi për Pajisje Mobile, AAB 2026/2027.
 - Java 3: [java-03.md](java-03.md), lista, detajet dhe kërkesa e simuluar. [Dorëzimi #842](https://github.com/arbenl/arbenl-mobile-assignments-2026-2027/issues/842), 5/5.
 - Java 4: [java-04.md](java-04.md), leximi real nga Neon dhe trajtimi i gabimeve. [Dorëzimi #847](https://github.com/arbenl/arbenl-mobile-assignments-2026-2027/issues/847), 5/5.
 - Java 5: [java-05.md](java-05.md), hyrja me GitHub dhe kontrolli në server i rolit dhe pronarit. [Dorëzimi #849](https://github.com/arbenl/arbenl-mobile-assignments-2026-2027/issues/849), 5/5.
-- Java 6: [java-06.md](java-06.md), manifesti, ikonat dhe lista publike për lexim offline.
+- Java 6: [java-06.md](java-06.md), manifesti, ikonat dhe lista publike për lexim offline. [Dorëzimi #852](https://github.com/arbenl/arbenl-mobile-assignments-2026-2027/issues/852).
 
 Pamjet dhe rezultatet e provave gjenden te [provat/](provat/). Kontrollet teknike nuk janë notë.
 
